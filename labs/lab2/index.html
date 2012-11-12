@@ -34,15 +34,36 @@
 
 <p>Lab will be held on November 13th, 2012 @ <a href="http://www.ScienceGallery.com">Science Gallery</a>, Dublin.</p>
 
-<h3>Links</h3>
-
-<p>Sample code for the CRM demo app is available <a href="https://github.com/roland9/crm_rk">at Github</a>. Check out the tags on the repo - these mark the steps of the lab.</p>
+<p>Here are the <a href="https://github.com/roland9/crm_rk/blob/master/crm_rk/xcakeNetworkingApps_Nov2012.key">Slides</a> that I'll be using</p>
 
 <p>The code uses <a href="http://cocoapods.org">Cocoapods</a>, an MIT-licensed tool for package management of iOS apps. You will need this to build the sample.</p>
 
 <p>In part of the lab, you will use <a href="http://restkit.org/">RestKit</a>, a toolkit that aims to make interacting with RESTful Web services simple and fast.</p>
 
 <p>Also, you'll be using <a href="https://github.com/AFNetworking/AFIncrementalStore">AFIncrementalStore</a>, a toolkit to do Core Data Persistence with AFNetworking.</p>
+
+</br>
+
+<h2>Roadmap for this lab:</h2>
+<h3>Approach 1: Restkit with CoreData</h3>
+<li>clone <a href="https://github.com/roland9/crm_rk">crm_rk at Github</a></li>
+<li>check out tag Step_1_loadObjects_from_server</li>
+
+<p>
+
+<h3>Approach 2: AFIncrementalStore</h3>
+<li>check out Step_2_replace_Restkit_with_AFIncrementalStore</li>
+<li>in Xcode, create new file RGClientsIncrementalStore - subclass of AFIncrementalStore (see <a href="https://gist.github.com/4061678">gist 1</a>)</li>
+<li>in Xcode, create new file RGClientsAPIClient - subclass of AFRESTClient (see <a href="https://gist.github.com/4061652">gist 2</a>)</li>
+
+<li>OR (if you are late - here is the end result: check out Step_3_add_AFIncrementalStore</li>
+</p>
+
+<h2>Links</h2>
+
+<p>Sample code for the CRM demo app is available <a href="https://github.com/roland9/crm_rk">at Github</a>. Check out the tags on the repo - these mark the steps of the lab.</p>
+
+
 
       </section>
 
