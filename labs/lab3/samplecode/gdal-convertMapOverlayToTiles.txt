@@ -1,0 +1,7 @@
+gdalinfo templebar.png
+clear
+rm -rf *vrt
+rm -rf templebar2
+gdal_translate -of VRT -a_srs EPSG:4326 -gcp 0 0 -6.273340481426700 53.34797788043240 -gcp 0 1101 -6.27362935289158 53.34349209790180 -gcp 2400 0 -6.256791017806710 53.34769639529970 -gcp 2400 1101 -6.256839175716090 53.34319511745170  templebar.png templebar.vrt
+gdalwarp -of VRT -t_srs EPSG:4326 templebar.vrt templebar2.vrt
+gdal2tiles.py -p mercator -k templebar2.vrt
