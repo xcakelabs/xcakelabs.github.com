@@ -2,12 +2,6 @@
 title: Xcakelabs: GDAL Tile Creation Tutorial
 ---
 
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="../../stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="../../stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="../../stylesheets/xcakelabs-custom.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="../../stylesheets/print.css" media="print" />
-
 GDAL Tile Creation Tutorial
 ===========================
 
@@ -16,9 +10,9 @@ Step 0 - Requirements:
 * Google Earth
 * Any image editor supporting PNG export (I suggest Pixelmator)
 * Install the GDAL framework from [Kyngchaos](http://www.kyngchaos.com/software:frameworks "GDAL framework")
-	Once installed, add 
+Once installed, add 
 	`export PATH="/Library/Frameworks/GDAL.framework/Programs:$PATH"`
-	to `~/.bash_profile`
+to `~/.bash_profile`
 
 Step 1 - Cleanup (optional):
 ----------------------------
