@@ -1,3 +1,7 @@
+---
+title: Xcakelabs: GDAL Tile Creation Tutorial
+---
+
 GDAL Tile Creation Tutorial
 ===========================
 
