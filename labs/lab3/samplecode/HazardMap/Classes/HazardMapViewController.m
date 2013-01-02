@@ -1,34 +1,44 @@
 #import "HazardMapViewController.h"
 
-#import "HazardMap.h"
-#import "HazardMapView.h"
+//#import "OverlayMap.h"
+//#import "OverlayMapView.h"
+#import "TileOverlay.h"
+#import "TileOverlayView.h"
 
 @implementation HazardMapViewController
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
-    // Find and load the earthquake hazard grid from the application's bundle
-    NSString *hazardPath = [[NSBundle mainBundle] pathForResource:@"UShazard.20081229.pga.5pc50" ofType:@"bin"];
-    HazardMap *hazards = [[HazardMap alloc] initWithHazardMapFile:hazardPath];
-    
-    // Position and zoom the map to just fit the grid loaded on screen
-    [map setVisibleMapRect:[hazards boundingMapRect]];
-    
-    // Add the earthquake hazard map to the map view
-    [map addOverlay:hazards];
-    
-    // Let the map view own the hazards model object now
-    [hazards release];
+    [self loadTilesForMap];
 }
 
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay{
-    HazardMapView *view = [[HazardMapView alloc] initWithOverlay:overlay];
-    return [view autorelease];
+- (MKOverlayView *)mapView:(MKMapView *)mv viewForOverlay:(id <MKOverlay>)overlay {
+	if ([overlay isKindOfClass:[TileOverlay class]]){
+		TileOverlayView *view = [[[TileOverlayView alloc] initWithOverlay:overlay] autorelease];
+		[view setMinZoomLevel:[(TileOverlay*)overlay minZoomLevel]];
+		[view setMaxZoomLevel:[(TileOverlay*)overlay maxZoomLevel]];
+		return view;
+    }
+    return nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
-    return YES;
+-(void)loadTilesForMap{
+	// Initialize the TileOverlay with tiles in the application's bundle's resource directory.
+    // Any valid tiled image directory structure in there will do.
+    NSString *tileDirectory = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Tiles"];
+ 	
+	BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:tileDirectory];
+	if (fileExists){
+		TileOverlay *overlay = [[TileOverlay alloc] initWithTileDirectory:tileDirectory];
+		[map addOverlay:overlay];
+        [overlay release];
+        
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(53.345261,-6.264009);
+        MKCoordinateSpan span = MKCoordinateSpanMake(0.003689,0.010300);
+        MKCoordinateRegion region = MKCoordinateRegionMake(coordinate, span);
+        [map setRegion:region animated:YES];
+		
+	}
 }
 
 @end

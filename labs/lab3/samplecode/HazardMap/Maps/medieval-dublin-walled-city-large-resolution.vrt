@@ -1,0 +1,56 @@
+<VRTDataset rasterXSize="8444" rasterYSize="5268">
+  <Metadata />
+  <Metadata domain="IMAGE_STRUCTURE">
+    <MDI key="INTERLEAVE">PIXEL</MDI>
+  </Metadata>
+  <GCPList Projection="GEOGCS[&quot;WGS 84&quot;,DATUM[&quot;WGS_1984&quot;,SPHEROID[&quot;WGS 84&quot;,6378137,298.257223563,AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]],PRIMEM[&quot;Greenwich&quot;,0,AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]">
+    <GCP Id="" Pixel="0.0000" Line="0.0000" X="-6.278094120697E+00" Y="5.334652473124E+01" />
+    <GCP Id="" Pixel="0.0000" Line="5268.0000" X="-6.278803109016E+00" Y="5.334166274680E+01" />
+    <GCP Id="" Pixel="8444.0000" Line="0.0000" X="-6.264965610691E+00" Y="5.334604668146E+01" />
+    <GCP Id="" Pixel="8444.0000" Line="5268.0000" X="-6.265041373108E+00" Y="5.334089937994E+01" />
+  </GCPList>
+  <VRTRasterBand dataType="Byte" band="1">
+    <Metadata />
+    <ColorInterp>Red</ColorInterp>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="1">medieval-dublin-walled-city-large-resolution.png</SourceFilename>
+      <SourceBand>1</SourceBand>
+      <SourceProperties RasterXSize="8444" RasterYSize="5268" DataType="Byte" BlockXSize="8444" BlockYSize="1" />
+      <SrcRect xOff="0" yOff="0" xSize="8444" ySize="5268" />
+      <DstRect xOff="0" yOff="0" xSize="8444" ySize="5268" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="2">
+    <Metadata />
+    <ColorInterp>Green</ColorInterp>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="1">medieval-dublin-walled-city-large-resolution.png</SourceFilename>
+      <SourceBand>2</SourceBand>
+      <SourceProperties RasterXSize="8444" RasterYSize="5268" DataType="Byte" BlockXSize="8444" BlockYSize="1" />
+      <SrcRect xOff="0" yOff="0" xSize="8444" ySize="5268" />
+      <DstRect xOff="0" yOff="0" xSize="8444" ySize="5268" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="3">
+    <Metadata />
+    <ColorInterp>Blue</ColorInterp>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="1">medieval-dublin-walled-city-large-resolution.png</SourceFilename>
+      <SourceBand>3</SourceBand>
+      <SourceProperties RasterXSize="8444" RasterYSize="5268" DataType="Byte" BlockXSize="8444" BlockYSize="1" />
+      <SrcRect xOff="0" yOff="0" xSize="8444" ySize="5268" />
+      <DstRect xOff="0" yOff="0" xSize="8444" ySize="5268" />
+    </SimpleSource>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Byte" band="4">
+    <Metadata />
+    <ColorInterp>Alpha</ColorInterp>
+    <SimpleSource>
+      <SourceFilename relativeToVRT="1">medieval-dublin-walled-city-large-resolution.png</SourceFilename>
+      <SourceBand>4</SourceBand>
+      <SourceProperties RasterXSize="8444" RasterYSize="5268" DataType="Byte" BlockXSize="8444" BlockYSize="1" />
+      <SrcRect xOff="0" yOff="0" xSize="8444" ySize="5268" />
+      <DstRect xOff="0" yOff="0" xSize="8444" ySize="5268" />
+    </SimpleSource>
+  </VRTRasterBand>
+</VRTDataset>

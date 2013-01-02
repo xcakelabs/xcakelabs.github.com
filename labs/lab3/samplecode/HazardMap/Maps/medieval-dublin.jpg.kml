@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<GroundOverlay>
+	<name>medieval-dublin.jpg</name>
+	<color>4dffffff</color>
+	<Icon>
+		<href>medieval-dublin.jpg</href>
+		<viewBoundScale>0.75</viewBoundScale>
+	</Icon>
+	<gx:LatLonQuad>
+		<coordinates>
+			-6.278803109016151,53.34166274680196,0 -6.265041373107916,53.34089937994335,0 -6.264965610690526,53.3460466814568,0 -6.278094120697057,53.34652473124198,0 
+		</coordinates>
+	</gx:LatLonQuad>
+</GroundOverlay>
+</kml>
