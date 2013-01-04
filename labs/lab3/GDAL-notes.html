@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/stylesheet.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/pygment_trac.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/xcakelabs-custom.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/print.css" media="print" />
+
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<title>Lab #3 / Xcake:labs by Xcakelabs</title>
+</head>
+
+<body>
+	<header>
+		<div class="inner">
+			<h1>Xcake:labs</h1>
+			<h2>More code, less talk.</h2>
+			<a href="https://github.com/Xcakelabs" class="button"><small>Follow me on</small>GitHub</a>
+		</div>
+	</header>
+
+	<div id="content-wrapper">
+		<div class="inner clearfix">
+			<section id="main-content">
+
+				<a href="../../index.html">Back to Main Page</a>
+
+				<h3>Lab 3: Creating Custom Tiled Map Overlays</h3>
+
+
+				<h2 id='gdal_tile_creation_tutorial'>GDAL Tile Creation Tutorial</h2>
+
+				<h3 id='step_0__requirements'>Step 0 - Requirements:</h3>
+
+				<ul>
+					<li>Google Earth</li>
+
+					<li>Any image editor supporting PNG export (I suggest Pixelmator)</li>
+
+					<li>Install the GDAL framework from <a href='http://www.kyngchaos.com/software:frameworks' title='GDAL framework'>Kyngchaos</a></li>
+				</ul>
+
+				<p>Once installed, add</p>
+				<pre><code>
+export PATH=&quot;/Library/Frameworks/GDAL.framework/Programs:$PATH&quot;
+				</code></pre>
+
+				<p>to <code>~/.bash_profile</code></pre>
+
+					<h3 id='step_1__cleanup_optional'>Step 1 - Cleanup (optional):</h3>
+
+					<p>Do a cleanup (if we need to)</p>
+					<pre><code>
+rm -rf *vrt
+rm -rf templebar2
+					</code></pre>
+
+					<p>If running in the simulator, you may also need to reset the simulator, as cached tiles don&#8217;t get cleared down between builds.</p>
+
+					<h3 id='step_2__align_image_in_google_earth'>Step 2 - Align image in Google Earth:</h3>
+
+					<ol>
+						<li>Using <em>Google Earth</em>, create an image overlay.</li>
+
+						<li>Roughly position the map image, convert to <em>LatLonQuad</em>, and tweak the corner positions till it&#8217;s aligned up correctly.</li>
+
+						<li>Export the image overlay as KML (for maximum accuracy), and grab the coordinates from the xml output (see the example below).</li>
+					</ol>
+					<pre><code>
+-6.278803109016151,53.34166274680196,0 -6.265041373107916,53.34089937994335,0 -6.264965610690526,53.3460466814568,0 -6.278094120697057,53.34652473124198,0 
+					</code></pre>
+
+					<p>which gives us</p>
+					<pre><code>
+1:  -6.278803109016151 53.34166274680196
+2:  -6.265041373107916 53.34089937994335
+3:  -6.264965610690526 53.3460466814568
+4:  -6.278094120697057 53.34652473124198
+					</code></pre>
+
+					<h3 id='step_3__gdal_info'>Step 3 - GDAL Info:</h3>
+
+					<p>Run <em>gdalinfo</em> on the overlay image to get the LatLonQuad coordinate ordering. Eg:</p>
+					<pre><code>
+gdalinfo medieval-dublin.jpg
+					</code></pre>
+
+					<p>From the output, get the corner coordinates</p>
+					<pre><code>
+Corner Coordinates:
+Upper Left  (    0.0,    0.0)
+Lower Left  (    0.0, 1317.0)
+Upper Right ( 2111.0,    0.0)
+Lower Right ( 2111.0, 1317.0)
+					</code></pre>
+
+					<h3 id='step_4_gdal_translate'>Step 4: GDAL Translate:</h3>
+
+					<p>Combine the output from the KML with the gdalinfo to get the required <code>-gcp</code> parameters for <code>gdal_translate</code>. NOTE: We need to get the ordering correct with respect to the image coordinates.</p>
+
+					<ul>
+						<li>KML 1: should map to Lower Left (&#8230;)</li>
+
+						<li>KML 2: should map to Lower Right (&#8230;)</li>
+
+						<li>KML 3: should map to Upper Right (&#8230;)</li>
+
+						<li>KML 4: should map to Upper Left (&#8230;)</li>
+					</ul>
+
+					<p>The -gcp parameter format for gdal_translate is</p>
+					<pre><code>
+gdal_translate \
+-of VRT \
+-a_srs EPSG:4326 \
+-gcp    0    0 -6.278094120697057 53.34652473124198 \
+-gcp    0 1317 -6.278803109016151 53.34166274680196 \
+-gcp 2111    0 -6.264965610690526 53.3460466814568  \
+-gcp 2111 1317 -6.265041373107916 53.34089937994335 \
+medieval-dublin.png \
+medieval-dublin.vrt
+					</code></pre>
+
+					<h3 id='step_5__gdal_warp'>Step 5 - GDAL Warp:</h3>
+
+					<p>Now run</p>
+					<pre><code>
+gdalwarp -of VRT -t_srs EPSG:4326 medieval-dublin.vrt Tiles.vrt
+					</code></pre>
+
+					<p>to warp the vrt file to the desired mercator-ready output</p>
+
+					<h3 id='step_6__gdal_to_tiles'>Step 6 - GDAL To Tiles</h3>
+
+					<p>Generate the tiles for use with the Xcode project using</p>
+					<pre><code>
+gdal2tiles.py -p mercator -k Tiles.vrt
+					</code></pre>
+
+					<p>This assumes that &#8216;Tiles&#8217; is the directory containing the required maptiles, and has been added as a folder reference to the Xcode project.</p>
+
+					<h3 id='examples'>GDAL Command Examples:</h3>
+
+					<h4 id='jpg_map_overlay'>JPG map overlay:</h4>
+					<pre><code>
+rm -rf *vrt
+rm -rf templebar2
+gdal_translate -of VRT -a_srs EPSG:4326 -gcp    0    0 -6.278094120697057 53.34652473124198 -gcp    0 1317 -6.278803109016151 53.34166274680196 -gcp 2111    0 -6.264965610690526 53.3460466814568  -gcp 2111 1317 -6.265041373107916 53.34089937994335 medieval-dublin.png medieval-dublin.vrt
+gdalwarp -of VRT -t_srs EPSG:4326 medieval-dublin.vrt Tiles.vrt
+gdal2tiles.py -p mercator -k Tiles.vrt
+					</code></pre>
+
+					<h4 id='png_map_overlay_with_transparency'>PNG map overlay with transparency:</h4>
+					<pre><code>
+rm -rf *vrt
+rm -rf Tiles
+gdal_translate -of VRT -a_srs EPSG:4326 -gcp    0    0 -6.278094120697057 53.34652473124198 -gcp    0 1317 -6.278803109016151 53.34166274680196 -gcp 2111    0 -6.264965610690526 53.3460466814568  -gcp 2111 1317 -6.265041373107916 53.34089937994335 medieval-dublin-walled-city.png medieval-dublin-walled-city.vrt
+gdalwarp -of VRT -t_srs EPSG:4326 medieval-dublin-walled-city.vrt Tiles.vrt
+gdal2tiles.py -p mercator -k Tiles.vrt
+					</code></pre>
+
+					<h4 id='large_png_map_overlay_with_transparency'>Large PNG map overlay with transparency:</h4>
+					<pre><code>
+gdalinfo medieval-dublin-walled-city-large-resolution.png
+rm -rf *vrt
+rm -rf Tiles
+gdal_translate -of VRT -a_srs EPSG:4326 -gcp    0    0 -6.278094120697057 53.34652473124198 -gcp    0 5268 -6.278803109016151 53.34166274680196 -gcp 8444    0 -6.264965610690526 53.3460466814568  -gcp 8444 5268 -6.265041373107916 53.34089937994335 medieval-dublin-walled-city-large-resolution.png medieval-dublin-walled-city-large-resolution.vrt
+gdalwarp -of VRT -t_srs EPSG:4326 medieval-dublin-walled-city-large-resolution.vrt Tiles.vrt
+gdal2tiles.py -p mercator -k Tiles.vrt
+					</code></pre>
+
+
+				</ul>
+
+			</section>
+
+			<aside id="sidebar">
+				<p>Follow <a href="http://twitter.com/Xcakelabs">@Xcakelabs</a>!</p>
+				<p>Drop us a line at <a href="mailto:hello@xcakelabs.com">hello@xcakelabs.com</a></p>
+				<p>Join the <a href="http://groups.google.com/group/xcakelabs">Xcake:labs Group</a></p>
+				<p>See if anyone is about at <em>irc.freenode.net:6667 #xcakelabs</em></p>
+			</aside>
+		</div>
+	</div>
+
+
+</body>
+</html>
