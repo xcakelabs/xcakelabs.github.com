@@ -1,53 +1,69 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="../../stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="../../stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="../../stylesheets/xcakelabs-custom.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="../../stylesheets/print.css" media="print" />
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/stylesheet.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/pygment_trac.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/xcakelabs-custom.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="../../stylesheets/print.css" media="print" />
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
-    <title>Lab #3 / Xcake:labs by Xcakelabs</title>
+	<title>Lab #3 / Xcake:labs by Xcakelabs</title>
   </head>
 
   <body>
-    <header>
-      <div class="inner">
-        <h1>Xcake:labs</h1>
-        <h2>More code, less talk.</h2>
-        <a href="https://github.com/Xcakelabs" class="button"><small>Follow me on</small>GitHub</a>
-      </div>
-    </header>
+	<header>
+	  <div class="inner">
+		<h1>Xcake:labs</h1>
+		<h2>More code, less talk.</h2>
+		<a href="https://github.com/Xcakelabs" class="button"><small>Follow me on</small>GitHub</a>
+	  </div>
+	</header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-      <a href="../../index.html">Back to Main Page</a>
-          <h3>Lab 3: Creating Custom Tiled Map Overlays</h3>
+	<div id="content-wrapper">
+	  <div class="inner clearfix">
+		<section id="main-content">
 
-<p>Lab will be held on January 8 2013 @ Science Gallery, Dublin, at 6pm</p>
+		  <a href="../../index.html">Back to Main Page</a>
+
+		  <h3>Lab 3: Creating Custom Tiled Map Overlays</h3>
+
+		<p>Lab will be held on January 8 2013 @ Science Gallery, Dublin, at 6pm</p>
+
+		<h3>About this lab:</h3>
+		<p>Originally developed as part of a requirement to provide offline mapping functionality in an iOS app, we realised that there is a whole plethora of other purposes this could be put to.</p>
+		<p><b>MKMapKit</b> is the maps-based framework provided by Apple for iOS development. Originally based around Google Maps, the same functionality is now available in conjunction with the new Apple vector maps.</p>
+		<p>We can add images to a map view using the <b>MKOverlayView</b> class. <b>MKOverlayViews</b> are anchored to the map view, and will zoom and pan in sync with the map. To ensure the image quality remains excellent at high zoom levels, we need images of high resolution. To ensure we don't incur a performance hit when using large images, we need to break the image up into tiles using the <b>GDAL</b> framework.</p>
+		<p> We can also cater for map images that aren't perfectly lined up with Google Maps' Mercator projection, by using Google Earth to calculate the map image's corner coordinates for use with the <b>GDAL</b> commands.
+
+		<br>
+		<p>This lab will be hands-on, and involve no small degree of jumping between Xcode, shell-scripting & terminal commands, and image-editing. Bring warm clothes and a packed lunch.</p>
+
+		<h3>Lab Requirements:</h3>
+		<ul>
+			<li>Xcode</li>
+			<li>Google Earth</li>
+			<li>Image editor (eg Photoshop or Pixelmator)</li>
+			<li>GDAL Framework</li>
+		</ul>
 
 
+		</section>
 
-
-
-        </section>
-
-        <aside id="sidebar">
-          <p>Follow <a href="http://twitter.com/Xcakelabs">@Xcakelabs</a>!</p>
-          <p>Drop us a line at <a href="mailto:hello@xcakelabs.com">hello@xcakelabs.com</a></p>
-          <p>Join the <a href="http://groups.google.com/group/xcakelabs">Xcake:labs Group</a></p>
-          <p>See if anyone is about at <em>irc.freenode.net:6667 #xcakelabs</em></p>
-        </aside>
-      </div>
-    </div>
+		<aside id="sidebar">
+			<p>Follow <a href="http://twitter.com/Xcakelabs">@Xcakelabs</a>!</p>
+			<p>Drop us a line at <a href="mailto:hello@xcakelabs.com">hello@xcakelabs.com</a></p>
+			<p>Join the <a href="http://groups.google.com/group/xcakelabs">Xcake:labs Group</a></p>
+			<p>See if anyone is about at <em>irc.freenode.net:6667 #xcakelabs</em></p>
+		</aside>
+	  </div>
+	</div>
 
   
   </body>
