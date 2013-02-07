@@ -1,3 +1,7 @@
 em {
   color: #2879d0;
 }
+
+strong {
+	font-weight: bold;
+}
